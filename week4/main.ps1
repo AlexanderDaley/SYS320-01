@@ -2,5 +2,5 @@
 
 clear
 
-$ips = getIPsVisited("index.html", '202', 'Chrome')
+$ips = getIPsVisited "index.html" '202' 'Chrome'
 $ips
