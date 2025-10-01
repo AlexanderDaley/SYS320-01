@@ -48,7 +48,6 @@ function checkPassword($pwd)
     Write-Host "Capital character issue" | Out-String
         return $False
     }
-    #TODO check if password contains a special character
     if($pwd -notmatch "`[!@#$%^&*()-+={[}]|\:;,<.>/?]")
     {
     Write-Host "Special character issue" | Out-String

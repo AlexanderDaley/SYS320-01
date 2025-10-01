@@ -149,15 +149,18 @@ while($operation){
 
     elseif($choice -eq 9)
     {
-        $days = Read-Host -Prompt "Please enter the max number of days you would check for at-risk users."
-        $userLogins = getFailedLogins $days -as Double
-
-        #use the count thing to consolidate all users and check which ones are above 10 failed logins
+        $days = Read-Host -Prompt "Please enter the max number of days you would check for at-risk users"
+        $userLogins = getFailedLogins $days -as Double | Group-Object count, name
+        $riskUsers = @()
+        foreach($item in $userLogins)
+        {
+            if($item.count > 9)
+            {
+                $riskUsers += $item.name
+            }
+        }
+        $riskUsers
     }
-    # TODO: Create another choice "List at Risk Users" that
-    #              - Lists all the users with more than 10 failed logins in the last <User Given> days.  
-    #                (You might need to create some failed logins to test)
-    #              - Do not forget to update prompt and option numbers
     
     else
     {
