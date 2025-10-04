@@ -24,12 +24,17 @@ function ApacheLogs1(){
     $tableRecords = @()
 
     for($i=0; $i -lt $logsNotFormatted.Length; $i++){
-        $words = $logsNotFormatted[$i].Insert(" ");
-        $tableRecords += [pscustomobject]@{ "IP" = $words[1];
-                                            "Time" = $words[2].Trim("[");
-                                           "Method" = $words[8].Trim('"');
-                                          "Page" = $words[13];
+        $words = $logsNotFormatted[$i].Split(" ");
+
+        $tableRecords += [pscustomobject]@{ "IP" = $words[0];
+                                            "Time" = $words[3].Trim("[");
+                                           "Method" = $words[4].Trim('"');
+                                          "Page" = $words[5];
+                                          "Protocol" = $words[6];
+                                          "Response" = $words[7];
+                                          "Referrer" = $words[8];
+                                          "Client" = $words[11..($words.Count)];
                                           }
     }
-
+    return $tableRecords | Where-Object {$_.IP -ilike "10.*"}
 }
