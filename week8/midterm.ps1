@@ -46,3 +46,18 @@ function Part2()
 ################
 
 #Part 3
+function Part3($logs, $indicator)
+{
+    $table = @()
+    for($i=0; $i -lt $logs.Length; $i++)
+    {
+        if($logs[$i].Page -ilike $indicator)
+        {
+            $table += $logs[$i]
+        }
+    }
+    return $table | Format-Table
+}
+
+$small = Part2
+Part3 $small "*`?*"
