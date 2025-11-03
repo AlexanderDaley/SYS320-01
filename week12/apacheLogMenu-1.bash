@@ -75,17 +75,11 @@ function getFrequentVisitors()
 function getSuspiciousVisitors()
 {
 	:> ioc.txt
-	:> targets.txt
 	echo "etc/passwd" >> ioc.txt
 	echo "/bin/sh" >> ioc.txt
 	echo "/bin/bash" >> ioc.txt
 	echo "\.\./" >> ioc.txt
-	while read -r line;
-	do
-		echo "$logFile" | grep line >> targets.txt
-	done < ioc.txt
-
-	cat "targets.txt" | sort -n | uniq -c
+	echo "$logFile" | egrep -i -f ioc.txt
 
 }
 
