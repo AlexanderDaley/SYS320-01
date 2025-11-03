@@ -48,9 +48,18 @@ function histogram(){
 
 function getFrequentVisitors()
 {
-	:> newTemp.txt
-	local allVisits=histogram
-	
+	histogram > temp1.txt
+
+	while read -r line;
+	do
+		local allVisits=$(echo "$line" | awk '{print $1}')
+		if [[ "$allVisits" -gt 9 ]]
+		then
+			echo "$line" | awk '{print $2}'
+		fi
+
+	done < temp1.txt
+
 }
 
 # function: suspiciousVisitors
@@ -63,6 +72,23 @@ function getFrequentVisitors()
 # demonstrate loops, functions, etc. If you can do things simpler,
 # it is welcomed.
 
+function getSuspiciousVisitors()
+{
+	:> ioc.txt
+	:> targets.txt
+	echo "etc/passwd" >> ioc.txt
+	echo "/bin/sh" >> ioc.txt
+	echo "/bin/bash" >> ioc.txt
+	echo "\.\./" >> ioc.txt
+	while read -r line;
+	do
+		echo "$logFile" | grep line >> targets.txt
+	done < ioc.txt
+
+	cat "targets.txt" | sort -n | uniq -c
+
+}
+
 while :
 do
 	echo "PLease select an option:"
@@ -70,15 +96,15 @@ do
 	echo "[2] Display only IPS"
 	echo "[3] Display only Pages"
 	echo "[4] Histogram"
-	# Frequent visitors
-	# Suspicious visitors
+	echo "[5] Frequent visitors"
+	echo "[6] Suspicious visitors"
 	echo "[7] Quit"
 
 	read userInput
 	echo ""
 
 	if [[ "$userInput" == "7" ]]; then
-		echo "Goodbye"		
+		echo "Goodbye"
 		break
 
 	elif [[ "$userInput" == "1" ]]; then
@@ -98,8 +124,14 @@ do
 		echo "Histogram:"
 		histogram
 
-        # Display frequent visitors
+	elif [[ "$userInput" == "5" ]]; then
+		echo "Frequent visitors:"
+		getFrequentVisitors
 	# Display suspicious visitors
-	# Display a message, if an invalid input is given
+	elif [[ "$userInput" == "6" ]]; then
+		echo "Suspicious visitors:"
+		getSuspiciousVisitors
+	else
+		echo "Invalid input"
 	fi
 done
