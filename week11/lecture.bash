@@ -5,6 +5,11 @@ function getAllLogs(){
 	allLogs=$(cat "$file" | sort | uniq -c)
 }
 
-getAllLogs
+function countingCurlAccess()
+{
+	allLogs=$(cat "$file" | sort | cut -d ' ' -f 1,2,12 | uniq -c)
+}
+
+countingCurlAccess
 
 echo "$allLogs"
