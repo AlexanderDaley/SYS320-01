@@ -1,0 +1,29 @@
+&#13;
+		<th>Pattern</th>&#13;
+		<th>Description</th>&#13;
+	
+&#13;
+		etc/passwd;&#13;
+		Access attempt to Linux users list;&#13;
+	
+&#13;
+		cmd=;&#13;
+		Windows reverse shell attempt;&#13;
+	
+&#13;
+		/bin/bash;&#13;
+		Linux shell attempt;&#13;
+	
+&#13;
+		/bin/sh;&#13;
+		Linux shell attempt;&#13;
+	
+&#13;
+		1=1#;&#13;
+		SQL injection attempt;&#13;
+	
+&#13;
+		1=1--;&#13;
+		SQL injection attempt;&#13;
+	
+
